@@ -9,7 +9,7 @@ enum Cell {
 }
 
 /// A simulated game of life.
-/// 
+///
 /// The simulation is finite, and the "viewable window" is even smaller.
 pub struct Game {
     grid: [[Cell; SIM_WIDTH]; SIM_WIDTH],
@@ -76,13 +76,13 @@ impl Game {
     }
 
     /// Transition the game to the next state.
-    /// 
+    ///
     /// See https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life for details.
     pub fn evolve(&mut self) {
-        *self = self.transform();
+        *self = self.next_state();
     }
 
-    fn transform(&self) -> Game {
+    fn next_state(&self) -> Game {
         let mut output = Game::new();
 
         for i in 0..SIM_WIDTH {
@@ -106,7 +106,7 @@ impl Game {
 }
 
 /// An iterator over the 8 neighbors of (i, j).
-/// 
+///
 /// Checks bounds against the range `0..=SIM_WIDTH`, and will yield fewer than 8
 /// neighbors if any of them would be out-of-bounds.
 fn neighbors(i: isize, j: isize) -> impl Iterator<Item = (isize, isize)> {
